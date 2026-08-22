@@ -1,0 +1,716 @@
+{% load static %}
+<nav id="site-nav" class="fixed top-0 left-0 w-full z-50 bg-white transition-shadow duration-300">
+
+    <div class="h-20 max-w-[1600px] mx-auto px-6 lg:px-16 flex items-center justify-between font-['Didact_Gothic']">
+
+        {# Logo #}
+        <a href="{% url 'home' %}" class="flex items-center shrink-0">
+            <img src="{% static 'images/logo2.png' %}" class="h-13 w-auto" alt="ING INFOMIX">
+        </a>
+
+        {# Desktop Navigation #}
+        <div class="hidden lg:flex items-center gap-10">
+
+            {# WHAT WE DO #}
+            <div class="relative group h-20 flex items-center">
+
+                <button
+                    class="relative font-medium h-20 flex items-center gap-1 transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+                    What We Do
+                    <svg class="w-3.5 h-3.5 mt-0.5 transition-transform duration-300 group-hover:rotate-180"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <div
+                    class="fixed left-0 top-20 w-full bg-white border-t border-gray-100 shadow-2xl
+                            invisible opacity-0 translate-y-2
+                            group-hover:visible group-hover:opacity-100 group-hover:translate-y-0
+                            transition-all duration-300 ease-out">
+
+                    <div class="max-w-[1600px] mx-auto px-6 lg:px-16 py-12 grid grid-cols-3 gap-12">
+
+                        <div>
+                            <h3 class="font-bold mb-5 text-lg text-gray-900">Services</h3>
+
+                            <ul class="space-y-4 text-gray-600" data-preview-group>
+
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800"
+                                        data-preview-title="Web Development"
+                                        data-preview-desc="Custom websites and web applications built on modern, scalable technology.">Web
+                                        Development</a></li>
+
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800"
+                                        data-preview-title="App Development"
+                                        data-preview-desc="Native and cross-platform mobile apps for iOS and Android.">App
+                                        Development</a></li>
+
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=800"
+                                        data-preview-title="Software Development"
+                                        data-preview-desc="Enterprise software built around how your business actually works.">Software
+                                        Development</a></li>
+
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?w=800"
+                                        data-preview-title="UI/UX Design"
+                                        data-preview-desc="Interface and experience design that keeps users at the center.">UI/UX
+                                        Design</a></li>
+
+                                {# Nested / flyout example #}
+                                <li class="relative group/nested">
+                                    <a href="#"
+                                        class="flex items-center justify-between hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800"
+                                        data-preview-title="Ecommerce Solutions"
+                                        data-preview-desc="Marketplace strategy and storefront management across major platforms.">
+                                        Ecommerce Solutions
+                                        <svg class="w-3.5 h-3.5 -rotate-90" viewBox="0 0 20 20" fill="none">
+                                            <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+
+                                    <ul
+                                        class="absolute left-full top-0 ml-4 w-64 bg-white shadow-2xl rounded-xl border border-gray-100 p-5 space-y-3
+                                               invisible opacity-0 -translate-x-2
+                                               group-hover/nested:visible group-hover/nested:opacity-100 group-hover/nested:translate-x-0
+                                               transition-all duration-300 ease-out">
+                                        <li><a href="#"
+                                                class="block hover:text-blue-600 transition"
+                                                data-preview-img="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800"
+                                                data-preview-title="Amazon"
+                                                data-preview-desc="Amazon marketplace setup and management.">Amazon</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="block hover:text-blue-600 transition"
+                                                data-preview-img="https://images.unsplash.com/photo-1524169358666-79f22534bc6e?w=800"
+                                                data-preview-title="Flipkart"
+                                                data-preview-desc="Flipkart seller services and storefront management.">Flipkart</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1571677246347-5040036b95cc?w=800"
+                                        data-preview-title="SEO Services"
+                                        data-preview-desc="Search optimization that moves your rankings and your traffic.">SEO
+                                        Services</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-5 text-lg text-gray-900">Digital Marketing</h3>
+
+                            <ul class="space-y-4 text-gray-600" data-preview-group>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800"
+                                        data-preview-title="Social Media Marketing"
+                                        data-preview-desc="Grow and engage your audience across social platforms.">Social
+                                        Media Marketing</a></li>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800"
+                                        data-preview-title="Content Marketing"
+                                        data-preview-desc="Content strategy that builds authority and drives demand.">Content
+                                        Marketing</a></li>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800"
+                                        data-preview-title="Email Marketing"
+                                        data-preview-desc="Targeted campaigns that keep customers coming back.">Email
+                                        Marketing</a></li>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
+                                        data-preview-title="Affiliate Marketing"
+                                        data-preview-desc="Performance marketing that pays for real results.">Affiliate
+                                        Marketing</a></li>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800"
+                                        data-preview-title="Influencer Marketing"
+                                        data-preview-desc="Reach new audiences through the right voices.">Influencer
+                                        Marketing</a></li>
+                            </ul>
+                        </div>
+
+                        <a href="#" class="block group/card"
+                            id="whatWeDoPreviewCard">
+                            <div class="rounded-xl overflow-hidden">
+                                <img id="whatWeDoPreviewImg"
+                                    src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800"
+                                    class="rounded-xl h-56 w-full object-cover group-hover/card:scale-105 duration-300"
+                                    style="transition-property: opacity, transform; transition-duration: 300ms;">
+                            </div>
+                            <h4 class="mt-5 text-xl font-semibold text-gray-900" id="whatWeDoPreviewTitle">Graphic
+                                Design &amp; Branding</h4>
+                            <p class="text-gray-600 mt-2" id="whatWeDoPreviewDesc">Logo design, video, banners and
+                                print — visual identity that stands out.</p>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            {# INDUSTRIES #}
+            <div class="relative group h-20 flex items-center">
+
+                <button
+                    class="relative font-medium h-20 flex items-center gap-1 transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+                    Industries
+                    <svg class="w-3.5 h-3.5 mt-0.5 transition-transform duration-300 group-hover:rotate-180"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <div
+                    class="fixed left-0 top-20 w-full bg-white border-t border-gray-100 shadow-2xl
+                            invisible opacity-0 translate-y-2
+                            group-hover:visible group-hover:opacity-100 group-hover:translate-y-0
+                            transition-all duration-300 ease-out">
+
+                    <div class="max-w-[1600px] mx-auto px-6 lg:px-16 py-12" id="industries-panel">
+
+                        <div class="grid grid-cols-3 gap-12">
+
+                            <div class="col-span-2">
+                                <h3 class="font-bold mb-5 text-lg text-gray-900">Industries</h3>
+
+                                <div class="grid grid-cols-2 gap-x-10 gap-y-4 text-gray-600" data-preview-group>
+                                    <a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
+                                        data-preview-title="Healthcare"
+                                        data-preview-desc="Modern healthcare infrastructure powered by cloud, AI and enterprise software.">Healthcare</a>
+                                    <a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800"
+                                        data-preview-title="Manufacturing"
+                                        data-preview-desc="Automation, ERP integration and intelligent manufacturing.">Manufacturing</a>
+                                    <a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800"
+                                        data-preview-title="Banking &amp; Finance"
+                                        data-preview-desc="Enterprise banking systems with security and compliance.">Banking
+                                        &amp; Finance</a>
+                                    <a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=800"
+                                        data-preview-title="Retail"
+                                        data-preview-desc="Modern omnichannel experiences for retailers.">Retail</a>
+                                    <a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800"
+                                        data-preview-title="Education"
+                                        data-preview-desc="Technology that transforms learning environments.">Education</a>
+                                    <a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800"
+                                        data-preview-title="Government"
+                                        data-preview-desc="Secure digital infrastructure for public services.">Government</a>
+                                </div>
+
+                                <div class="mt-8 pt-6 border-t border-gray-100">
+                                    <a href="{% url 'home' %}#industries" class="text-blue-600 font-medium hover:underline">View all
+                                        industries &rarr;</a>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'home' %}#industries" class="block group/card" id="industriesPreviewCard">
+                                <div class="rounded-xl overflow-hidden">
+                                    <img id="industriesPreviewImg"
+                                        src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
+                                        class="rounded-xl h-56 w-full object-cover group-hover/card:scale-105 duration-300"
+                                        style="transition-property: opacity, transform; transition-duration: 300ms;">
+                                </div>
+                                <h4 class="mt-5 text-xl font-semibold text-gray-900" id="industriesPreviewTitle">
+                                    Healthcare</h4>
+                                <p class="text-gray-600 mt-2" id="industriesPreviewDesc">Modern healthcare
+                                    infrastructure powered by cloud, AI and enterprise software.</p>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {# INSIGHTS #}
+            <div class="relative group h-20 flex items-center">
+
+                <button
+                    class="relative font-medium h-20 flex items-center gap-1 transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+                    Insights
+                    <svg class="w-3.5 h-3.5 mt-0.5 transition-transform duration-300 group-hover:rotate-180"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <div
+                    class="fixed left-0 top-20 w-full bg-white border-t border-gray-100 shadow-2xl
+                            invisible opacity-0 translate-y-2
+                            group-hover:visible group-hover:opacity-100 group-hover:translate-y-0
+                            transition-all duration-300 ease-out">
+
+                    <div class="max-w-[1600px] mx-auto px-6 lg:px-16 py-12 grid grid-cols-3 gap-12"
+                        id="insights-panel">
+
+                        <div class="col-span-2">
+                            <h3 class="font-bold mb-5 text-lg text-gray-900">Insights</h3>
+
+                            <ul class="space-y-4 text-gray-600" data-preview-group>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800"
+                                        data-preview-title="Blog"
+                                        data-preview-desc="Articles and insights on web, mobile and digital marketing.">Blog</a>
+                                </li>
+                                <li><a href="#"
+                                        class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800"
+                                        data-preview-title="Case Studies"
+                                        data-preview-desc="Real projects, real results from clients we've worked with.">Case
+                                        Studies</a></li>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
+                                        data-preview-title="Webinars &amp; Events"
+                                        data-preview-desc="Live sessions and events hosted by our team.">Webinars &amp;
+                                        Events</a></li>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800"
+                                        data-preview-title="Newsroom"
+                                        data-preview-desc="The latest updates and announcements from ING INFOMIX.">Newsroom</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a href="#" class="block group/card" id="insightsPreviewCard">
+                            <div class="rounded-xl overflow-hidden">
+                                <img id="insightsPreviewImg"
+                                    src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800"
+                                    class="rounded-xl h-56 w-full object-cover group-hover/card:scale-105 duration-300"
+                                    style="transition-property: opacity, transform; transition-duration: 300ms;">
+                            </div>
+                            <h4 class="mt-5 text-xl font-semibold text-gray-900" id="insightsPreviewTitle">Blog</h4>
+                            <p class="text-gray-600 mt-2" id="insightsPreviewDesc">Articles and insights on web,
+                                mobile and digital marketing.</p>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            {# WHO WE ARE #}
+            <div class="relative group h-20 flex items-center">
+
+                <button
+                    class="relative font-medium h-20 flex items-center gap-1 transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+                    Who We Are
+                    <svg class="w-3.5 h-3.5 mt-0.5 transition-transform duration-300 group-hover:rotate-180"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <div
+                    class="fixed left-0 top-20 w-full bg-white border-t border-gray-100 shadow-2xl
+                            invisible opacity-0 translate-y-2
+                            group-hover:visible group-hover:opacity-100 group-hover:translate-y-0
+                            transition-all duration-300 ease-out">
+
+                    <div class="max-w-[1600px] mx-auto px-6 lg:px-16 py-12 grid grid-cols-3 gap-12"
+                        id="whoweare-panel">
+
+                        <div class="col-span-2">
+                            <h3 class="font-bold mb-5 text-lg text-gray-900">Who We Are</h3>
+
+                            <ul class="space-y-4 text-gray-600" data-preview-group>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800"
+                                        data-preview-title="About Us"
+                                        data-preview-desc="Empowering businesses with cutting-edge technology solutions since 2014.">About
+                                        Us</a></li>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
+                                        data-preview-title="What We Do"
+                                        data-preview-desc="Our services and expertise, end to end.">What We Do</a></li>
+                                <li><a href="#" class="hover:text-blue-600 transition"
+                                        data-preview-img="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800"
+                                        data-preview-title="Our Team"
+                                        data-preview-desc="Meet the experts behind the work.">Our Team</a></li>
+                            </ul>
+                        </div>
+
+                        <a href="#" class="block group/card" id="whoWeArePreviewCard">
+                            <div class="rounded-xl overflow-hidden">
+                                <img id="whoWeArePreviewImg"
+                                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800"
+                                    class="rounded-xl h-56 w-full object-cover group-hover/card:scale-105 duration-300"
+                                    style="transition-property: opacity, transform; transition-duration: 300ms;">
+                            </div>
+                            <h4 class="mt-5 text-xl font-semibold text-gray-900" id="whoWeArePreviewTitle">About Us
+                            </h4>
+                            <p class="text-gray-600 mt-2" id="whoWeArePreviewDesc">Empowering businesses with
+                                cutting-edge technology solutions since 2014.</p>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <a href="#"
+                class="relative font-medium h-20 flex items-center transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Careers</a>
+
+            <a href="#"
+                class="relative font-medium h-20 flex items-center transition duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[22px] after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+
+        </div>
+
+        {# Buttons #}
+        <div class="hidden lg:flex gap-4 shrink-0">
+
+            <a href="#"
+                class="px-6 py-2 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition">
+                Login
+            </a>
+
+            <a href="#"
+                class="px-6 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
+                Get Started
+            </a>
+
+        </div>
+
+        {# Mobile toggle #}
+        <button id="mobile-nav-toggle" class="lg:hidden p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+            <svg class="w-7 h-7 text-gray-900" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+        </button>
+
+    </div>
+
+    {# Mobile menu #}
+    <div id="mobile-nav"
+        class="lg:hidden hidden max-h-[calc(100vh-5rem)] overflow-y-auto bg-white border-t border-gray-100 shadow-2xl">
+        <div class="px-6 py-6 space-y-1 font-['Didact_Gothic']">
+
+            <details class="group/m">
+                <summary class="list-none flex items-center justify-between py-3 font-medium cursor-pointer">
+                    What We Do
+                    <svg class="w-4 h-4 transition-transform group-open/m:rotate-180" viewBox="0 0 20 20"
+                        fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </summary>
+                <div class="pl-4 pb-3 space-y-2 text-gray-600">
+                    <a href="#" class="block py-1">Web Development</a>
+                    <a href="#" class="block py-1">App Development</a>
+                    <a href="#" class="block py-1">Software
+                        Development</a>
+                    <a href="#" class="block py-1">Ecommerce Solutions</a>
+                    <a href="#" class="block py-1">SEO Services</a>
+                    <a href="#" class="block py-1">Social
+                        Media Marketing</a>
+                    <a href="#" class="block py-1">Graphic Design</a>
+                </div>
+            </details>
+
+            <details class="group/m border-t border-gray-100">
+                <summary class="list-none flex items-center justify-between py-3 font-medium cursor-pointer">
+                    Industries
+                    <svg class="w-4 h-4 transition-transform group-open/m:rotate-180" viewBox="0 0 20 20"
+                        fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </summary>
+                <div class="pl-4 pb-3 space-y-2 text-gray-600">
+                    <a href="{% url 'home' %}#industries" class="block py-1">Healthcare</a>
+                    <a href="{% url 'home' %}#industries" class="block py-1">Manufacturing</a>
+                    <a href="{% url 'home' %}#industries" class="block py-1">Banking &amp; Finance</a>
+                    <a href="{% url 'home' %}#industries" class="block py-1">Retail</a>
+                    <a href="{% url 'home' %}#industries" class="block py-1 text-blue-600 font-medium">View all industries &rarr;</a>
+                </div>
+            </details>
+
+            <details class="group/m border-t border-gray-100">
+                <summary class="list-none flex items-center justify-between py-3 font-medium cursor-pointer">
+                    Insights
+                    <svg class="w-4 h-4 transition-transform group-open/m:rotate-180" viewBox="0 0 20 20"
+                        fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </summary>
+                <div class="pl-4 pb-3 space-y-2 text-gray-600">
+                    <a href="#" class="block py-1">Blog</a>
+                    <a href="#" class="block py-1">Case Studies</a>
+                    <a href="#" class="block py-1">Webinars &amp; Events</a>
+                    <a href="#" class="block py-1">Newsroom</a>
+                </div>
+            </details>
+
+            <details class="group/m border-t border-gray-100">
+                <summary class="list-none flex items-center justify-between py-3 font-medium cursor-pointer">
+                    Who We Are
+                    <svg class="w-4 h-4 transition-transform group-open/m:rotate-180" viewBox="0 0 20 20"
+                        fill="none">
+                        <path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </summary>
+                <div class="pl-4 pb-3 space-y-2 text-gray-600">
+                    <a href="#" class="block py-1">About Us</a>
+                    <a href="#" class="block py-1">What We Do</a>
+                    <a href="#" class="block py-1">Our Team</a>
+                </div>
+            </details>
+
+            <a href="#" class="block py-3 font-medium border-t border-gray-100">Careers</a>
+            <a href="#" class="block py-3 font-medium border-t border-gray-100">Contact</a>
+
+            <div class="flex gap-3 pt-4 border-t border-gray-100">
+                <a href="#"
+                    class="flex-1 text-center px-6 py-2 rounded-full border border-blue-600 text-blue-600">Login</a>
+                <a href="#"
+                    class="flex-1 text-center px-6 py-2 rounded-full bg-blue-600 text-white">Get Started</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function wirePreview(panelId, imgId, titleId, descId, cardId) {
+                var panel = document.getElementById(panelId);
+                if (!panel) return;
+                panel.querySelectorAll('a[data-preview-img]').forEach(function(link) {
+                    link.addEventListener('mouseenter', function() {
+                        document.getElementById(imgId).src = link.getAttribute('data-preview-img');
+                        document.getElementById(titleId).textContent = link.getAttribute(
+                            'data-preview-title');
+                        document.getElementById(descId).textContent = link.getAttribute(
+                            'data-preview-desc');
+                        document.getElementById(cardId).setAttribute('href', link.getAttribute(
+                            'href'));
+                    });
+                });
+            }
+
+            wirePreview('industries-panel', 'industriesPreviewImg', 'industriesPreviewTitle',
+                'industriesPreviewDesc', 'industriesPreviewCard');
+            wirePreview('insights-panel', 'insightsPreviewImg', 'insightsPreviewTitle', 'insightsPreviewDesc',
+                'insightsPreviewCard');
+            wirePreview('whoweare-panel', 'whoWeArePreviewImg', 'whoWeArePreviewTitle', 'whoWeArePreviewDesc',
+                'whoWeArePreviewCard');
+        });
+    </script>
+
+</nav>
+
+{% block scripts %}
+    <script>
+        // Navbar behaviour
+        const nav = document.querySelector("#site-nav");
+
+        if (nav) {
+            const applyScrollShadow = () => {
+                if (window.scrollY > 10) {
+                    nav.classList.add("shadow-md");
+                } else {
+                    nav.classList.remove("shadow-md");
+                }
+            };
+
+            applyScrollShadow();
+            window.addEventListener("scroll", applyScrollShadow, {
+                passive: true
+            });
+        }
+
+        // Mega Menu Preview
+        const previewImg = document.querySelector("#whatWeDoPreviewImg");
+        const previewTitle = document.querySelector("#whatWeDoPreviewTitle");
+        const previewDesc = document.querySelector("#whatWeDoPreviewDesc");
+        const previewLinks = document.querySelectorAll("[data-preview-img]");
+
+        if (previewImg && previewLinks.length) {
+            previewLinks.forEach((link) => {
+                const src = link.dataset.previewImg;
+                if (src) new Image().src = src;
+            });
+
+            const defaultState = {
+                img: previewImg.src,
+                title: previewTitle ? previewTitle.textContent : "",
+                desc: previewDesc ? previewDesc.textContent : "",
+            };
+
+            const FADE_MS = 180;
+            let fadeTimeout = null;
+
+            const setPreview = (img, title, desc) => {
+                clearTimeout(fadeTimeout);
+                previewImg.style.opacity = "0";
+
+                fadeTimeout = setTimeout(() => {
+                    previewImg.src = img;
+                    if (previewTitle) previewTitle.textContent = title;
+                    if (previewDesc) previewDesc.textContent = desc;
+                    previewImg.style.opacity = "1";
+                }, FADE_MS);
+            };
+
+            previewLinks.forEach((link) => {
+                link.addEventListener("mouseenter", () => {
+                    setPreview(
+                        link.dataset.previewImg,
+                        link.dataset.previewTitle || defaultState.title,
+                        link.dataset.previewDesc || defaultState.desc
+                    );
+                });
+            });
+
+            document.querySelectorAll("[data-preview-group]").forEach((group) => {
+                group.addEventListener("mouseleave", () => {
+                    setPreview(defaultState.img, defaultState.title, defaultState.desc);
+                });
+            });
+        }
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector("#mobile-nav-toggle");
+        const mobileNav = document.querySelector("#mobile-nav");
+
+        if (mobileToggle && mobileNav) {
+            mobileToggle.addEventListener("click", () => {
+                const isOpen = !mobileNav.classList.contains("hidden");
+                mobileNav.classList.toggle("hidden");
+                mobileToggle.setAttribute("aria-expanded", String(!isOpen));
+            });
+        }
+
+        // Blog / Insights Slider Section
+        const featuredCard = document.getElementById("featuredCard");
+        const featuredImage = document.getElementById("featuredImage");
+        const featuredCategory = document.getElementById("featuredCategory");
+        const featuredTitle = document.getElementById("featuredTitle");
+        const featuredBody = document.getElementById("featuredBody");
+        const sideCards = document.getElementById("sideCards");
+        const nextBtn = document.getElementById("insightNext");
+        const prevBtn = document.getElementById("insightPrev");
+
+        const insights = [{
+                image: "https://picsum.photos/900/600?random=1",
+                category: "Cloud",
+                title: "Accelerating enterprise cloud transformation.",
+                body: "Helping organizations modernize infrastructure."
+            },
+            {
+                image: "https://picsum.photos/900/600?random=2",
+                category: "AI",
+                title: "Making AI practical for business.",
+                body: "Transforming AI into measurable business value."
+            },
+            {
+                image: "https://picsum.photos/900/600?random=3",
+                category: "Cyber Security",
+                title: "Building resilient enterprises.",
+                body: "Security strategies designed for cloud-first organizations."
+            },
+            {
+                image: "https://picsum.photos/900/600?random=4",
+                category: "ERP",
+                title: "Modern ERP for global organizations.",
+                body: "Connecting operations across departments."
+            },
+            {
+                image: "https://picsum.photos/900/600?random=5",
+                category: "Data",
+                title: "Turning enterprise data into decisions.",
+                body: "Building data-driven organizations."
+            },
+            {
+                image: "https://picsum.photos/900/600?random=6",
+                category: "Digital",
+                title: "Designing modern customer experiences.",
+                body: "Creating digital products customers love."
+            }
+        ];
+
+        if (featuredCard && sideCards) {
+            let current = 0;
+
+            function render() {
+                const featured = insights[current];
+                featuredCard.classList.add("fade-out");
+
+                setTimeout(() => {
+                    if (featuredImage) featuredImage.src = featured.image;
+                    if (featuredCategory) featuredCategory.textContent = featured.category;
+                    if (featuredTitle) featuredTitle.textContent = featured.title;
+                    if (featuredBody) featuredBody.textContent = featured.body;
+
+                    let html = "";
+                    for (let i = 1; i <= 3; i++) {
+                        const item = insights[(current + i) % insights.length];
+                        html += `
+                    <article class="group rounded-2xl overflow-hidden bg-white shadow hover:shadow-xl transition">
+                        <div class="overflow-hidden">
+                            <img src="${item.image}" class="w-full h-40 object-cover group-hover:scale-105 transition duration-700">
+                        </div>
+                        <div class="p-5">
+                            <div class="uppercase text-[11px] tracking-[.3em] text-blue-600">${item.category}</div>
+                            <h4 class="font-bold text-xl mt-3">${item.title}</h4>
+                            <a class="inline-flex mt-5 text-blue-600 font-semibold cursor-pointer">Read More →</a>
+                        </div>
+                    </article>
+                `;
+                    }
+
+                    sideCards.innerHTML = html;
+                    featuredCard.classList.remove("fade-out");
+                    featuredCard.classList.add("fade-in");
+
+                    setTimeout(() => {
+                        featuredCard.classList.remove("fade-in");
+                    }, 450);
+                }, 450);
+            }
+
+            render();
+
+            if (nextBtn) {
+                nextBtn.onclick = () => {
+                    current = (current + 1) % insights.length;
+                    render();
+                };
+            }
+
+            if (prevBtn) {
+                prevBtn.onclick = () => {
+                    current = (current - 1 + insights.length) % insights.length;
+                    render();
+                };
+            }
+
+            setInterval(() => {
+                if (nextBtn) nextBtn.click();
+            }, 6000);
+        }
+    </script>
+{% endblock %}

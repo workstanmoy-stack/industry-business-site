@@ -1,0 +1,1484 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        .hero-video {
+            transform: scale(1);
+            animation: heroZoom 20s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        @keyframes heroZoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        /* Marquee: two duplicated sets scrolled by -50%, so the loop is seamless */
+        .marquee-track {
+            animation: marquee-scroll 28s linear infinite;
+        }
+
+        .marquee-mask:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+
+        /* Scroll reveal */
+        .reveal-up,
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal-up.is-visible,
+        .reveal-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-item.is-open .faq-answer {
+            max-height: 16rem;
+        }
+
+        .faq-item.is-open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-icon {
+            display: inline-block;
+            transition: transform 0.25s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track {
+                animation: none;
+            }
+
+            .reveal-up,
+            .reveal-item {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .hero-slide {
+                transition: none !important;
+            }
+        }
+
+        /* blog css */
+        #featuredCard {
+            transition: .4s;
+            transition: opacity .45s ease, transform .45s ease;
+        }
+
+        #featuredCard.fade-out {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        #featuredCard.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #featuredImage {
+            transition: transform .7s ease;
+        }
+
+        #featuredCard:hover {
+            transform: translateY(-8px);
+        }
+
+        #sideCards article {
+            transition: .35s;
+        }
+
+        #sideCards article:hover {
+            transform: translateX(8px);
+        }
+
+        /* customer */
+        .customer-track {
+            display: flex;
+            gap: 32px;
+            width: max-content;
+            padding-inline: 40px;
+            animation: customerScroll 42s linear infinite;
+        }
+
+        .customer-track:hover {
+            animation-play-state: paused;
+        }
+
+        .customer-card {
+            width: 460px;
+            height: 540px;
+            flex-shrink: 0;
+        }
+
+        .customer-card img {
+            transition: transform .8s ease;
+        }
+
+        .customer-card:hover img {
+            transform: scale(1.08);
+        }
+
+        @keyframes customerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(-50% - 16px));
+            }
+        }
+
+        .customer-track {
+            display: flex;
+            width: max-content;
+            gap: 30px;
+            animation: customerScroll 40s linear infinite;
+            padding-inline: 40px;
+        }
+
+        .customer-track:hover {
+            animation-play-state: paused;
+        }
+
+        .customer-card {
+            width: 460px;
+            height: 520px;
+            flex-shrink: 0;
+            transition: .4s;
+        }
+
+        @media (max-width:1024px) {
+            .customer-card {
+                width: 340px;
+                height: 420px;
+            }
+
+            .customer-track {
+                gap: 20px;
+                padding-inline: 24px;
+            }
+        }
+
+        @media (max-width:480px) {
+            .customer-card {
+                width: 280px;
+                height: 380px;
+            }
+        }
+
+        .customer-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .customer-card img {
+            transition: 1s;
+        }
+
+        .customer-card:hover img {
+            transform: scale(1.08);
+        }
+
+        @keyframes customerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(-50% - 15px));
+            }
+        }
+
+        /* WHY CHOOSE US ACCORDION */
+        .whyAccordion {
+            display: flex;
+            gap: 12px;
+            height: 560px;
+        }
+
+        .whyPanel {
+            position: relative;
+            flex: 1;
+            min-width: 90px;
+            overflow: hidden;
+            border-radius: 28px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            transition:
+                flex .85s cubic-bezier(.22, .61, .36, 1),
+                transform .45s ease,
+                box-shadow .45s ease;
+        }
+
+        .whyPanel:hover {
+            transform: translateY(-6px);
+        }
+
+        .whyPanel.active {
+            flex: 5;
+            box-shadow: 0 35px 70px rgba(15, 23, 42, .18);
+        }
+
+        /* Dark Overlay */
+        .whyPanel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to top,
+                    rgba(2, 6, 23, .92),
+                    rgba(2, 6, 23, .45),
+                    rgba(2, 6, 23, .08));
+            transition: .45s;
+        }
+
+        .whyPanel.active::before {
+            background:
+                linear-gradient(to top,
+                    rgba(2, 6, 23, .95),
+                    rgba(2, 6, 23, .52),
+                    rgba(2, 6, 23, .12));
+        }
+
+        /* Vertical Label */
+        .whyLabel {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(14px);
+            color: #fff;
+            padding: 12px 10px;
+            border-radius: 100px;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 5;
+            transition: .4s;
+        }
+
+        .whyPanel.active .whyLabel {
+            opacity: 0;
+        }
+
+        /* CONTENT */
+        .whyContent {
+            position: absolute;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            color: white;
+        }
+
+        /* Small Label */
+        .whyContent span {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: #93c5fd;
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity .35s ease,
+                transform .35s ease;
+        }
+
+        /* Heading */
+        .whyContent h3 {
+            margin-top: 16px;
+            font-size: 42px;
+            line-height: 1.05;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity .45s ease,
+                transform .45s ease;
+        }
+
+        /* Paragraph */
+        .whyContent p {
+            margin-top: 18px;
+            max-width: 500px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, .82);
+            font-size: 16px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity .45s ease,
+                transform .45s ease;
+        }
+
+        /* Button */
+        .whyContent a {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 28px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity .4s ease,
+                transform .4s ease,
+                color .3s ease;
+        }
+
+        .whyContent a:hover {
+            color: #60a5fa;
+        }
+
+        /* DELAYED ANIMATION */
+        .whyPanel.active span {
+            transition-delay: .35s;
+            opacity: 1;
+            transform: none;
+        }
+
+        .whyPanel.active h3 {
+            transition-delay: .48s;
+            opacity: 1;
+            transform: none;
+        }
+
+        .whyPanel.active p {
+            transition-delay: .62s;
+            opacity: 1;
+            transform: none;
+        }
+
+        .whyPanel.active a {
+            transition-delay: .78s;
+            opacity: 1;
+            transform: none;
+        }
+
+        /* MOBILE */
+        @media(max-width:1024px) {
+            .whyAccordion {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .whyPanel {
+                flex: none;
+                min-width: 100%;
+                height: 90px;
+                transition:
+                    height .55s cubic-bezier(.22, .61, .36, 1),
+                    transform .45s ease,
+                    box-shadow .45s ease;
+            }
+
+            .whyPanel.active {
+                flex: none;
+                height: 380px;
+            }
+
+            .whyLabel {
+                writing-mode: horizontal-tb;
+                transform: none;
+                left: 20px;
+                bottom: 20px;
+                top: auto;
+            }
+
+            .whyContent {
+                left: 28px;
+                right: 28px;
+                bottom: 28px;
+            }
+
+            .whyContent h3 {
+                font-size: 30px;
+            }
+        }
+
+        /* industry section css */
+        .industryTag {
+            padding: .6rem 1rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            color: white;
+            font-size: .82rem;
+        }
+
+        #industryImage {
+            transition:
+                opacity .45s ease,
+                transform .8s ease;
+        }
+
+        #industryCard:hover #industryImage {
+            transform: scale(1.04);
+        }
+
+        .industryFade {
+            opacity: 0;
+        }
+
+        /* footer */
+        footer {
+            position: relative;
+            isolation: isolate;
+        }
+
+        footer::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 255, 255, .10), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(255, 255, 255, .08), transparent 35%),
+                radial-gradient(circle at 60% 10%, rgba(255, 255, 255, .05), transparent 25%);
+            mix-blend-mode: screen;
+        }
+
+        .gsap-reveal {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    {# hero #}
+    <section class="relative min-h-screen overflow-hidden">
+
+        {# Background Video #}
+        <video class="hero-video absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="auto" webkit-playsinline>
+            <source src="{% static 'videos/Background-Video.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        {# Dark Overlay #}
+        <div class="absolute inset-0 bg-slate-950/55"></div>
+
+        {# Gradient Overlay #}
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-950/50 via-black/20 to-slate-950"></div>
+
+        {# Grid Overlay #}
+        <div class="absolute inset-0 opacity-15"
+            style="
+            background-image:
+            linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+            background-size:60px 60px;">
+        </div>
+
+        {# Hero Content #}
+        <div class="relative z-20 max-w-[1600px] mx-auto min-h-screen px-5 sm:px-6 lg:px-10 2xl:px-16 pt-28 pb-20 lg:pt-0 lg:pb-0 grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-16 xl:gap-20">
+
+            {# LEFT #}
+            <div class="lg:col-span-7">
+                <span class="uppercase tracking-[0.4em] text-blue-400 text-[10px] sm:text-xs">
+                    INNOVATION • TECHNOLOGY • GROWTH
+                </span>
+
+                <h1 class="mt-6 sm:mt-8 text-white text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold leading-[0.95] sm:leading-[0.9] flex flex-col gap-1 sm:gap-2">
+                    <span>Engineering</span>
+                    <span>Tomorrow's</span>
+                    <span>Enterprise.</span>
+                </h1>
+
+                <p class="mt-6 sm:mt-8 max-w-xl text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed">
+                    We accelerate business growth through innovative technology, software solutions, and digital transformation.
+                </p>
+
+                {# Buttons #}
+                <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row gap-4">
+                    <a href="#" class="w-full sm:w-auto text-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-700 transition text-white">
+                        Get Started
+                    </a>
+                    <a href="#" class="w-full sm:w-auto text-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-full border border-white/20 text-white hover:bg-white/10 transition">
+                        Explore Services →
+                    </a>
+                </div>
+            </div>
+
+            {# RIGHT #}
+            <div class="lg:col-span-5 flex justify-center lg:justify-end">
+                <div class="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl">
+                    <div class="flex items-center justify-between">
+                        <span class="text-white font-medium">Our Expertise</span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                    </div>
+
+                    <div class="mt-8 sm:mt-10 space-y-5">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Business Development</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Software Development</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Website Development</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Mobile App Development</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Digital Marketing</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                            <span class="text-sm sm:text-base text-white/80">Enterprise IT Services</span>
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-10">
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white">40+</h2>
+                            <p class="text-white/50 text-sm">Projects</p>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white">09</h2>
+                            <p class="text-white/50 text-sm">Years</p>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white">12</h2>
+                            <p class="text-white/50 text-sm">Engineers</p>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white">98%</h2>
+                            <p class="text-white/50 text-sm">Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {# Trust Bar #}
+        <div class="relative lg:absolute lg:bottom-0 left-0 w-full border-t border-white/10 bg-black/20 backdrop-blur-md">
+            <div class="max-w-[1600px] mx-auto px-5 sm:px-6 lg:px-10 2xl:px-16 py-5 lg:py-0 lg:h-24 flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-between gap-x-8 gap-y-3 uppercase tracking-[0.2em] sm:tracking-[0.3em] text-xs sm:text-sm text-white/50">
+                <span>DISCOVER</span>
+                <span>STRATEGIZE</span>
+                <span>BUILD</span>
+                <span>DEPLOY</span>
+                <span>OPTIMIZE</span>
+                <span>GROW</span>
+            </div>
+        </div>
+
+    </section>
+
+    {# ============ CLIENT LOGO MARQUEE ============ #}
+    <section class="bg-white border-b border-gray-100 py-8 sm:py-10 lg:py-12 font-['Didact_Gothic']">
+        <div class="max-w-[1600px] mx-auto px-5 sm:px-6 lg:px-10 2xl:px-16">
+            <p class="text-center text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.35em] text-gray-400 mb-6 sm:mb-8">
+                Trusted by our clients
+            </p>
+
+            {# Marquee #}
+            <div class="marquee-mask relative overflow-hidden">
+                <div class="marquee-track flex items-center gap-10 sm:gap-14 lg:gap-20 w-max">
+                    {# First Set #}
+                    {% for client in "12345678910111213"|make_list %}
+                        <div class="flex items-center justify-center h-12 sm:h-14 lg:h-16 w-28 sm:w-36 lg:w-40 shrink-0 transition-all duration-300 hover:scale-105">
+                            <img src="{% static 'images/clients/client' %}{{ forloop.counter }}.png" alt="Client {{ forloop.counter }}" class="max-h-10 sm:max-h-12 lg:max-h-14 max-w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300">
+                        </div>
+                    {% endfor %}
+
+                    {# Duplicate Set #}
+                    {% for client in "12345678910111213"|make_list %}
+                        <div class="flex items-center justify-center h-12 sm:h-14 lg:h-16 w-28 sm:w-36 lg:w-40 shrink-0" aria-hidden="true">
+                            <img src="{% static 'images/clients/client' %}{{ forloop.counter }}.png" alt="" class="max-h-10 sm:max-h-12 lg:max-h-14 max-w-full object-contain opacity-80 hover:opacity-100 transition-all duration-300">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# company blog #}
+    <section class="py-16 md:py-24 xl:py-28 bg-white font-['Didact_Gothic']">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 xl:px-16">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-10 md:mb-12">
+                <div>
+                    <span class="uppercase tracking-[0.35em] text-blue-600 text-[10px] sm:text-xs">
+                        INSIGHTS
+                    </span>
+                    <h2 class="mt-3 md:mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+                        Perspectives
+                    </h2>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="prev" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border flex items-center justify-center hover:bg-black hover:text-white transition">
+                        ←
+                    </button>
+                    <button id="next" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border flex items-center justify-center hover:bg-black hover:text-white transition">
+                        →
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {# Featured Article #}
+                <div class="lg:col-span-8">
+                    <article id="featuredCard" class="group rounded-3xl overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <div class="overflow-hidden">
+                            <img id="featuredImage" src="{% static 'images/insights/insight1.jpg' %}" class="w-full h-[260px] sm:h-[360px] md:h-[440px] xl:h-[520px] object-cover transition duration-700 group-hover:scale-105">
+                        </div>
+                        <div class="p-6 sm:p-8 xl:p-10">
+                            <span id="featuredCategory" class="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-blue-600">
+                                Cloud
+                            </span>
+                            <h3 id="featuredTitle" class="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-slate-900">
+                                Accelerating enterprise cloud transformation.
+                            </h3>
+                            <p id="featuredBody" class="mt-5 text-gray-600 text-sm sm:text-base leading-7 sm:leading-8">
+                                Helping organizations modernize infrastructure and build resilient digital ecosystems.
+                            </p>
+                            <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-blue-600 hover:gap-4 transition-all">
+                                Read More →
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                {# Side Articles #}
+                <div id="sideCards" class="lg:col-span-4 flex flex-col gap-5 lg:gap-6"></div>
+            </div>
+        </div>
+    </section>
+
+    {# services #}
+    <section class="py-16 md:py-24 xl:py-28 bg-white font-['Didact_Gothic']">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 xl:px-16">
+            <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16 xl:mb-20">
+                <span class="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-blue-600">
+                    OUR EXPERTISE
+                </span>
+                <h2 class="mt-4 md:mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                    Solutions Built for Modern Business
+                </h2>
+                <p class="mt-5 md:mt-6 text-base sm:text-lg text-gray-600 leading-7 sm:leading-8">
+                    We combine business expertise with modern technology to help organizations innovate, improve efficiency, and achieve sustainable growth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10">
+                {# BUSINESS DEVELOPMENT #}
+                <article class="group overflow-hidden rounded-3xl bg-white border border-gray-200 hover:border-blue-500 hover:shadow-2xl transition-all duration-500">
+                    <div class="relative overflow-hidden h-56 sm:h-64 lg:h-72">
+                        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Business Development" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 sm:bottom-8 sm:left-8">
+                            <span class="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+                                Business Development
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 xl:p-10">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+                            Digital Growth & Creative Services
+                        </h3>
+                        <p class="mt-4 sm:mt-5 text-gray-600 text-sm sm:text-base leading-7 sm:leading-8">
+                            We help businesses strengthen their market presence through strategic consulting, digital experiences, branding, software solutions, and result-driven marketing initiatives.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8">
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Website Development</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Software Development</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Mobile Apps</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">SEO</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Digital Marketing</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Branding</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Graphics Design</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Video Production</span>
+                        </div>
+
+                        <a href="#" class="inline-flex items-center gap-3 mt-8 sm:mt-10 font-semibold text-blue-600 hover:gap-5 transition-all">
+                            Explore Business Solutions →
+                        </a>
+                    </div>
+                </article>
+
+                {# IT SERVICES #}
+                <article class="group overflow-hidden rounded-3xl bg-white border border-gray-200 hover:border-blue-500 hover:shadow-2xl transition-all duration-500">
+                    <div class="relative overflow-hidden h-56 sm:h-64 lg:h-72">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop" alt="IT Services" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 sm:bottom-8 sm:left-8">
+                            <span class="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+                                IT Services
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 xl:p-10">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+                            Enterprise Technology & IT Services
+                        </h3>
+                        <p class="mt-4 sm:mt-5 text-gray-600 text-sm sm:text-base leading-7 sm:leading-8">
+                            Secure, scalable and reliable technology solutions designed to keep modern businesses connected and productive.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8">
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Enterprise IT Solutions</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Computer & Laptop Services</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Office Technology</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Network Solutions</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Managed IT Services</span>
+                            <span class="px-3 py-2 sm:px-4 rounded-full bg-gray-100 text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition">Hardware Support</span>
+                        </div>
+
+                        <a href="#" class="inline-flex items-center gap-3 mt-8 sm:mt-10 font-semibold text-blue-600 hover:gap-5 transition-all">
+                            Explore IT Services →
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    {# clients stories #}
+    <section class="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white font-['Didact_Gothic']">
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute inset-0 opacity-[0.035]"
+                style="
+                background-image:
+                linear-gradient(#2563eb 1px, transparent 1px),
+                linear-gradient(90deg,#2563eb 1px, transparent 1px);
+                background-size:70px 70px;">
+            </div>
+            <div class="absolute -top-44 right-0 w-[550px] h-[550px] rounded-full bg-blue-200/40 blur-[150px]"></div>
+            <div class="absolute bottom-0 -left-40 w-[450px] h-[450px] rounded-full bg-sky-200/40 blur-[140px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 mb-14 sm:mb-16">
+            <span class="uppercase tracking-[.35em] text-blue-600 text-xs">
+                CUSTOMER SUCCESS
+            </span>
+
+            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-8 mt-5">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+                        Impact Delivered
+                    </h2>
+                    <p class="mt-6 text-slate-600 max-w-2xl text-base sm:text-lg leading-7 sm:leading-8">
+                        Explore how our business and technology solutions help organizations solve complex challenges, improve operational efficiency, and achieve measurable business outcomes.
+                    </p>
+                </div>
+
+                <a href="#" class="inline-flex lg:flex items-center gap-3 text-blue-600 font-semibold hover:gap-5 transition-all">
+                    View All Case Studies →
+                </a>
+            </div>
+        </div>
+
+        <div class="relative">
+            <div class="customer-track">
+                {% for i in "12"|make_list %}
+                    <article class="customer-card group">
+                        <div class="relative h-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl">
+                            <img src="https://picsum.photos/800/900?random=11" alt="Digital Factory Transformation" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-8">
+                                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-4 py-2 text-[11px] uppercase tracking-[.25em] font-semibold text-blue-700">
+                                    Manufacturing
+                                </span>
+                                <h3 class="mt-6 text-3xl font-bold leading-tight text-white">Digital Factory Transformation</h3>
+                                <p class="mt-4 text-white/80 leading-7">Reduced operational costs by 35%</p>
+                                <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-white transition-all group-hover:gap-4">
+                                    Read Case Study →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="customer-card group">
+                        <div class="relative h-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl">
+                            <img src="https://picsum.photos/800/900?random=12" alt="Modern Healthcare Infrastructure" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-8">
+                                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-4 py-2 text-[11px] uppercase tracking-[.25em] font-semibold text-blue-700">
+                                    Healthcare
+                                </span>
+                                <h3 class="mt-6 text-3xl font-bold leading-tight text-white">Modern Healthcare Infrastructure</h3>
+                                <p class="mt-4 text-white/80 leading-7">500+ connected workstations</p>
+                                <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-white transition-all group-hover:gap-4">
+                                    Read Case Study →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="customer-card group">
+                        <div class="relative h-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl">
+                            <img src="https://picsum.photos/800/900?random=13" alt="Enterprise Cloud Migration" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-8">
+                                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-4 py-2 text-[11px] uppercase tracking-[.25em] font-semibold text-blue-700">
+                                    Finance
+                                </span>
+                                <h3 class="mt-6 text-3xl font-bold leading-tight text-white">Enterprise Cloud Migration</h3>
+                                <p class="mt-4 text-white/80 leading-7">99.99% Service Availability</p>
+                                <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-white transition-all group-hover:gap-4">
+                                    Read Case Study →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="customer-card group">
+                        <div class="relative h-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl">
+                            <img src="https://picsum.photos/800/900?random=14" alt="Omnichannel Commerce Platform" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-8">
+                                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-4 py-2 text-[11px] uppercase tracking-[.25em] font-semibold text-blue-700">
+                                    Retail
+                                </span>
+                                <h3 class="mt-6 text-3xl font-bold leading-tight text-white">Omnichannel Commerce Platform</h3>
+                                <p class="mt-4 text-white/80 leading-7">42% Increase In Customer Engagement</p>
+                                <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-white transition-all group-hover:gap-4">
+                                    Read Case Study →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="customer-card group">
+                        <div class="relative h-full overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-2xl">
+                            <img src="https://picsum.photos/800/900?random=15" alt="Campus Technology Modernization" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-8">
+                                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-4 py-2 text-[11px] uppercase tracking-[.25em] font-semibold text-blue-700">
+                                    Education
+                                </span>
+                                <h3 class="mt-6 text-3xl font-bold leading-tight text-white">Campus Technology Modernization</h3>
+                                <p class="mt-4 text-white/80 leading-7">15,000+ Active Users</p>
+                                <a href="#" class="inline-flex items-center gap-2 mt-8 font-semibold text-white transition-all group-hover:gap-4">
+                                    Read Case Study →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {# why choose us #}
+    <section class="py-20 sm:py-24 lg:py-32 bg-white font-['Didact_Gothic']">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8">
+            <div class="max-w-3xl mb-14 sm:mb-20">
+                <span class="uppercase tracking-[.35em] text-blue-600 text-xs">
+                    WHY CHOOSE US
+                </span>
+                <h2 class="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+                    Your Technology Partner For Sustainable Growth
+                </h2>
+                <p class="mt-6 text-base sm:text-lg text-slate-600 leading-7 sm:leading-8">
+                    We combine business strategy with enterprise technology to deliver scalable solutions that help organizations innovate, modernize and grow.
+                </p>
+            </div>
+
+            <div class="whyAccordion">
+                {# 1 #}
+                <div class="whyPanel active" tabindex="0" style="background-image:url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                    <div class="whyLabel">Business + IT</div>
+                    <div class="whyContent">
+                        <span>STRATEGY</span>
+                        <h3>Everything Your Business Needs Under One Roof.</h3>
+                        <p>From branding and software development to enterprise IT, we provide complete digital transformation under one roof.</p>
+                        <a href="#">Learn More →</a>
+                    </div>
+                </div>
+
+                {# 2 #}
+                <div class="whyPanel" tabindex="0" style="background-image:url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                    <div class="whyLabel">Delivery</div>
+                    <div class="whyContent">
+                        <span>DELIVERY</span>
+                        <h3>Complete Project Delivery</h3>
+                        <p>We manage every stage of your project—from planning and design to deployment and long-term support.</p>
+                        <a href="#">Learn More →</a>
+                    </div>
+                </div>
+
+                {# 3 #}
+                <div class="whyPanel" tabindex="0" style="background-image:url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                    <div class="whyLabel">Enterprise</div>
+                    <div class="whyContent">
+                        <span>SOLUTIONS</span>
+                        <h3>Scalable Technology Solutions</h3>
+                        <p>Secure infrastructure, cloud platforms and scalable solutions built for organizations of every size.</p>
+                        <a href="#">Learn More →</a>
+                    </div>
+                </div>
+
+                {# 4 #}
+                <div class="whyPanel" tabindex="0" style="background-image:url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                    <div class="whyLabel">Support</div>
+                    <div class="whyContent">
+                        <span>SUPPORT</span>
+                        <h3>Long-Term Technology Partnership</h3>
+                        <p>Our team provides proactive monitoring, maintenance and rapid technical assistance.</p>
+                        <a href="#">Learn More →</a>
+                    </div>
+                </div>
+
+                {# 5 #}
+                <div class="whyPanel" tabindex="0" style="background-image:url('https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                    <div class="whyLabel">Innovation</div>
+                    <div class="whyContent">
+                        <span>FUTURE READY</span>
+                        <h3>Continuous Innovation</h3>
+                        <p>Leveraging AI, cloud and emerging technologies to prepare businesses for tomorrow.</p>
+                        <a href="#">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# ============ INDUSTRIES ============ #}
+    <section class="py-20 sm:py-24 lg:py-32 bg-white font-['Didact_Gothic']">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8">
+            <div class="mb-12 sm:mb-16">
+                <span class="uppercase tracking-[.35em] text-blue-600 text-xs">
+                    INDUSTRIES
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+                    Industry Expertise That Drives Results
+                </h2>
+                <p class="mt-6 max-w-3xl text-base sm:text-lg text-slate-600 leading-7 sm:leading-8">
+                    Every industry faces unique challenges. We combine business expertise with innovative technology to deliver solutions tailored to your operational goals, customers, and future growth.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                {# LEFT #}
+                <div class="lg:col-span-8">
+                    <div id="industryCard" class="relative overflow-hidden rounded-[34px] h-[420px] sm:h-[500px] lg:h-[620px]">
+                        <img id="industryImage" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+                        <div class="absolute left-6 right-6 bottom-6 sm:left-10 sm:right-10 sm:bottom-10 text-white">
+                            <span id="industryCategory" class="uppercase tracking-[.35em] text-blue-300 text-xs">
+                                Healthcare
+                            </span>
+                            <h3 id="industryTitle" class="mt-4 sm:mt-5 text-2xl sm:text-3xl lg:text-5xl font-bold">
+                                Digital Healthcare Transformation
+                            </h3>
+                            <p id="industryDesc" class="mt-4 sm:mt-6 max-w-xl text-white/80 text-sm sm:text-base leading-6 sm:leading-8">
+                                Modern healthcare infrastructure powered by cloud, AI and secure enterprise systems.
+                            </p>
+                            <div id="industryTags" class="flex flex-wrap gap-3 mt-8">
+                                <span class="industryTag">Enterprise Software</span>
+                                <span class="industryTag">Cloud</span>
+                                <span class="industryTag">Cyber Security</span>
+                                <span class="industryTag">Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# RIGHT #}
+                <div class="lg:col-span-4">
+                    <div class="space-y-2">
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Healthcare" data-title="Digital Healthcare Transformation" data-desc="Modern healthcare infrastructure powered by cloud, AI and enterprise software." data-img="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80" data-tags="Enterprise Software|Cloud|Cyber Security|Analytics">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Healthcare</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Manufacturing" data-title="Smart Factory Solutions" data-desc="Automation, ERP integration and intelligent manufacturing." data-img="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1600&q=80" data-tags="ERP|Automation|IoT|Networking">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Manufacturing</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Banking & Finance" data-title="Secure Financial Platforms" data-desc="Enterprise banking systems with security and compliance." data-img="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80" data-tags="Security|Cloud|Payments|AI">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Banking & Finance</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Retail" data-title="Connected Commerce" data-desc="Modern omnichannel experiences for retailers." data-img="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1600&q=80" data-tags="E-Commerce|POS|CRM|Analytics">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Retail</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Education" data-title="Digital Learning Ecosystems" data-desc="Technology that transforms learning environments." data-img="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&auto=format&fit=crop&q=80" data-tags="Cloud|LMS|Networking|Support">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Education</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+
+                        <button class="industryItem w-full text-left border-b border-slate-200 py-7 group" data-name="Government" data-title="Public Sector Modernization" data-desc="Secure digital infrastructure for public services." data-img="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1600&q=80" data-tags="Security|Infrastructure|Cloud|Support">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xl font-semibold text-slate-700 group-hover:text-blue-600 transition">Government</h4>
+                                <span class="text-slate-400 group-hover:translate-x-2 transition">→</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# lets talk #}
+    <section class="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-100 py-16 md:py-24 xl:py-32 font-['Didact_Gothic']">
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 opacity-[0.05]"
+                style="
+                background-image:
+                linear-gradient(rgba(15,23,42,.12) 1px,transparent 1px),
+                linear-gradient(90deg,rgba(15,23,42,.12) 1px,transparent 1px);
+                background-size:70px 70px;">
+            </div>
+            <div class="absolute -top-24 -left-20 sm:-top-32 sm:-left-24 lg:-top-40 lg:-left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full bg-blue-100 opacity-70 blur-2xl lg:blur-3xl"></div>
+            <div class="absolute -bottom-24 -right-20 sm:-bottom-32 sm:-right-24 lg:-bottom-40 lg:-right-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full bg-cyan-100 opacity-70 blur-2xl lg:blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-5 sm:px-6 lg:px-10 text-center">
+            <span class="uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[10px] sm:text-xs font-semibold text-blue-600">
+                LET'S BUILD TOGETHER
+            </span>
+
+            <h2 class="reveal-up mt-4 sm:mt-5 lg:mt-6 font-bold text-3xl sm:text-4xl md:text-5xl xl:text-6xl leading-tight text-slate-900">
+                Got a project in mind?
+            </h2>
+
+            <p class="reveal-up max-w-2xl mx-auto mt-5 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600">
+                Whether you're planning a new website, custom software, digital transformation initiative, or enterprise IT solution, our team is ready to help you achieve your business goals with confidence.
+            </p>
+
+            <div class="reveal-up flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5 mt-8 sm:mt-10 lg:mt-12">
+                <a href="/get-started" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 text-white text-sm sm:text-base font-medium shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:-translate-y-1 transition-all duration-300">
+                    Start Your Project
+                </a>
+                <a href="mailto:info@yourcompany.com" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full border border-slate-300 bg-white/80 backdrop-blur text-slate-700 text-sm sm:text-base font-medium hover:bg-white hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+                    Contact Us →
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // ============ HERO CAROUSEL ============
+        const heroCarousel = document.querySelector("#hero-carousel");
+
+        if (heroCarousel) {
+            const slides = [...heroCarousel.querySelectorAll(".hero-slide")];
+            const dots = [...heroCarousel.querySelectorAll(".hero-dot")];
+            const dotFills = [...heroCarousel.querySelectorAll(".hero-dot-fill")];
+            const counter = heroCarousel.querySelector("#hero-counter");
+            const prevBtn = heroCarousel.querySelector("#hero-prev");
+            const nextBtn = heroCarousel.querySelector("#hero-next");
+            const total = slides.length;
+            const interval = Number(heroCarousel.dataset.interval) || 6000;
+
+            let current = 0;
+            let timer = null;
+            let fillAnimation = null;
+
+            const pad = (n) => String(n + 1).padStart(2, "0");
+
+            const renderDots = () => {
+                dots.forEach((dot, i) => {
+                    dot.querySelector(".hero-dot-fill").style.transition = "none";
+                    dot.querySelector(".hero-dot-fill").style.width = i < current ? "100%" : "0%";
+                });
+            };
+
+            const animateActiveDot = () => {
+                const fill = dotFills[current];
+                if (!fill) return;
+                fill.style.transition = "none";
+                fill.style.width = "0%";
+                void fill.offsetWidth;
+                fill.style.transition = `width ${interval}ms linear`;
+                fill.style.width = "100%";
+            };
+
+            const goTo = (index) => {
+                current = (index + total) % total;
+                slides.forEach((slide, i) => {
+                    slide.style.opacity = i === current ? "1" : "0";
+                });
+                if (counter) counter.textContent = `${pad(current)} / ${pad(total - 1)}`;
+                renderDots();
+                animateActiveDot();
+                resetTimer();
+            };
+
+            const next = () => goTo(current + 1);
+            const prev = () => goTo(current - 1);
+
+            const resetTimer = () => {
+                clearInterval(timer);
+                timer = setInterval(next, interval);
+            };
+
+            dots.forEach((dot) => {
+                dot.addEventListener("click", () => goTo(Number(dot.dataset.goto)));
+            });
+            if (nextBtn) nextBtn.addEventListener("click", next);
+            if (prevBtn) prevBtn.addEventListener("click", prev);
+
+            heroCarousel.addEventListener("mouseenter", () => clearInterval(timer));
+            heroCarousel.addEventListener("mouseleave", resetTimer);
+
+            goTo(0);
+        }
+
+        // ============ STAT COUNTERS ============
+        const statNumbers = document.querySelectorAll(".stat-number");
+
+        if (statNumbers.length) {
+            const animateCount = (el) => {
+                const target = Number(el.dataset.count) || 0;
+                const suffix = el.dataset.suffix || "";
+                const duration = 1200;
+                const start = performance.now();
+
+                const tick = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.round(eased * target) + suffix;
+                    if (progress < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            };
+
+            const statObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCount(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            statNumbers.forEach((el) => statObserver.observe(el));
+        }
+
+        // ============ SCROLL REVEAL ============
+        const revealTargets = document.querySelectorAll(".reveal-up, .reveal-item");
+
+        if (revealTargets.length) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            revealTargets.forEach((el) => revealObserver.observe(el));
+        }
+
+        // ============ FAQ ACCORDION ============
+        document.querySelectorAll(".faq-item").forEach((item) => {
+            const question = item.querySelector(".faq-question");
+            if (!question) return;
+            question.addEventListener("click", () => {
+                const wasOpen = item.classList.contains("is-open");
+                const parentContainer = item.closest(".reveal-group") || item.parentElement;
+
+                if (parentContainer) {
+                    parentContainer.querySelectorAll(".faq-item.is-open").forEach((open) => {
+                        open.classList.remove("is-open");
+                    });
+                }
+
+                if (!wasOpen) item.classList.add("is-open");
+            });
+        });
+
+        // ===============================
+        // INSIGHTS / PERSPECTIVES SLIDER
+        // ===============================
+        document.addEventListener("DOMContentLoaded", () => {
+            const featuredCard = document.getElementById("featuredCard");
+            const featuredImage = document.getElementById("featuredImage");
+            const featuredCategory = document.getElementById("featuredCategory");
+            const featuredTitle = document.getElementById("featuredTitle");
+            const featuredBody = document.getElementById("featuredBody");
+            const sideCards = document.getElementById("sideCards");
+            const nextBtn = document.getElementById("next");
+            const prevBtn = document.getElementById("prev");
+
+            if (!featuredCard || !sideCards) return;
+
+            const insights = [{
+                    image: "https://picsum.photos/900/600?random=1",
+                    category: "Cloud",
+                    title: "Accelerating enterprise cloud transformation.",
+                    body: "Helping organizations modernize infrastructure and build resilient digital ecosystems."
+                },
+                {
+                    image: "https://picsum.photos/900/600?random=2",
+                    category: "AI",
+                    title: "Making AI practical for business.",
+                    body: "Transforming enterprise data into measurable operational value."
+                },
+                {
+                    image: "https://picsum.photos/900/600?random=3",
+                    category: "Cyber Security",
+                    title: "Building resilient enterprises.",
+                    body: "Security strategies designed for modern cloud-first organizations."
+                },
+                {
+                    image: "https://picsum.photos/900/600?random=4",
+                    category: "ERP",
+                    title: "Modern ERP for global organizations.",
+                    body: "Connecting operations seamlessly across multi-national departments."
+                },
+                {
+                    image: "https://picsum.photos/900/600?random=5",
+                    category: "Data",
+                    title: "Turning enterprise data into decisions.",
+                    body: "Building intelligent data pipelines for forward-thinking organizations."
+                },
+                {
+                    image: "https://picsum.photos/900/600?random=6",
+                    category: "Digital",
+                    title: "Designing modern customer experiences.",
+                    body: "Creating scalable digital web and mobile products customers love."
+                }
+            ];
+
+            let current = 0;
+
+            function render() {
+                const featured = insights[current];
+
+                featuredCard.classList.add("fade-out");
+
+                setTimeout(() => {
+                    if (featuredImage) featuredImage.src = featured.image;
+                    if (featuredCategory) featuredCategory.textContent = featured.category;
+                    if (featuredTitle) featuredTitle.textContent = featured.title;
+                    if (featuredBody) featuredBody.textContent = featured.body;
+
+                    let html = "";
+                    for (let i = 1; i <= 3; i++) {
+                        const item = insights[(current + i) % insights.length];
+
+                        html += `
+                    <article class="group rounded-2xl overflow-hidden bg-white shadow hover:shadow-xl transition cursor-pointer">
+                        <div class="overflow-hidden">
+                            <img
+                                src="${item.image}"
+                                alt="${item.title}"
+                                class="w-full h-40 object-cover group-hover:scale-105 transition duration-700">
+                        </div>
+                        <div class="p-5">
+                            <div class="uppercase text-[11px] tracking-[.3em] text-blue-600 font-semibold">
+                                ${item.category}
+                            </div>
+                            <h4 class="font-bold text-xl text-slate-900 mt-3 leading-snug">
+                                ${item.title}
+                            </h4>
+                            <a class="inline-flex items-center gap-2 mt-5 text-blue-600 font-semibold group-hover:gap-3 transition-all">
+                                Read More →
+                            </a>
+                        </div>
+                    </article>
+                `;
+                    }
+
+                    sideCards.innerHTML = html;
+
+                    featuredCard.classList.remove("fade-out");
+                    featuredCard.classList.add("fade-in");
+
+                    setTimeout(() => {
+                        featuredCard.classList.remove("fade-in");
+                    }, 450);
+
+                }, 450);
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener("click", () => {
+                    current = (current + 1) % insights.length;
+                    render();
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener("click", () => {
+                    current = (current - 1 + insights.length) % insights.length;
+                    render();
+                });
+            }
+
+            render();
+        });
+
+        // ===============================
+        // WHY CHOOSE US ACCORDION
+        // ===============================
+        document.addEventListener("DOMContentLoaded", () => {
+            const panels = document.querySelectorAll(".whyPanel");
+
+            function activate(panel) {
+                panels.forEach(item => {
+                    item.classList.remove("active");
+                    item.setAttribute("aria-expanded", "false");
+                });
+
+                panel.classList.add("active");
+                panel.setAttribute("aria-expanded", "true");
+            }
+
+            panels.forEach(panel => {
+                panel.addEventListener("click", () => activate(panel));
+                panel.addEventListener("mouseenter", () => activate(panel));
+                panel.addEventListener("focus", () => activate(panel));
+                panel.addEventListener("keydown", e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        activate(panel);
+                    }
+                });
+            });
+        });
+
+        // ===============================
+        // INDUSTRY SECTION JS
+        // ===============================
+        const mobileButtons = document.querySelectorAll(".industryMobile");
+        const desktopItems = document.querySelectorAll(".industryItem");
+
+        function updateIndustryCard(data) {
+            const image = document.getElementById("industryImage");
+            const category = document.getElementById("industryCategory");
+            const title = document.getElementById("industryTitle");
+            const desc = document.getElementById("industryDesc");
+            const tags = document.getElementById("industryTags");
+
+            if (!image) return;
+
+            image.classList.add("industryFade");
+
+            setTimeout(() => {
+                image.src = data.img;
+                category.textContent = data.name;
+                title.textContent = data.title;
+                desc.textContent = data.desc;
+
+                tags.innerHTML = "";
+                data.tags.split("|").forEach(tag => {
+                    tags.innerHTML += `<span class="industryTag">${tag}</span>`;
+                });
+
+                image.classList.remove("industryFade");
+            }, 250);
+        }
+
+        function setActiveIndustry(name) {
+            mobileButtons.forEach(btn => {
+                if (btn.dataset.name === name) {
+                    btn.classList.remove("bg-slate-100", "text-slate-700", "border-slate-200");
+                    btn.classList.add("bg-blue-600", "text-white", "border-blue-600");
+                } else {
+                    btn.classList.remove("bg-blue-600", "text-white", "border-blue-600");
+                    btn.classList.add("bg-slate-100", "text-slate-700", "border-slate-200");
+                }
+            });
+
+            desktopItems.forEach(item => {
+                const heading = item.querySelector("h4");
+                const arrow = item.querySelector("span");
+
+                if (item.dataset.name === name) {
+                    item.classList.add("border-blue-600");
+                    if (heading) heading.classList.add("text-blue-600");
+                    if (arrow) arrow.classList.add("translate-x-2", "text-blue-600");
+                } else {
+                    item.classList.remove("border-blue-600");
+                    if (heading) heading.classList.remove("text-blue-600");
+                    if (arrow) arrow.classList.remove("translate-x-2", "text-blue-600");
+                }
+            });
+        }
+
+        mobileButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                updateIndustryCard(btn.dataset);
+                setActiveIndustry(btn.dataset.name);
+            });
+        });
+
+        desktopItems.forEach(item => {
+            item.addEventListener("mouseenter", () => {
+                updateIndustryCard(item.dataset);
+                setActiveIndustry(item.dataset.name);
+            });
+
+            item.addEventListener("click", () => {
+                updateIndustryCard(item.dataset);
+                setActiveIndustry(item.dataset.name);
+            });
+        });
+    </script>
+{% endblock %}
