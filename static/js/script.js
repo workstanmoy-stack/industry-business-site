@@ -1,1 +1,0 @@
-console.log("Django serving js is working")

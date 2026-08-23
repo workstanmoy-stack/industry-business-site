@@ -1,0 +1,164 @@
+{% load static %}
+<footer class="relative overflow-hidden bg-[#0B5EA8] text-white font-['Didact_Gothic']">
+  {# ================= PREMIUM BACKGROUND ================= #}
+
+  {# Base Gradient #}
+  <div class="absolute inset-0 bg-gradient-to-br from-[#1177D1] via-[#0B5EA8] to-[#063A69]"></div>
+
+  {# Cyan Glow #}
+  <div class="absolute -top-56 -left-48 w-[720px] h-[720px] rounded-full bg-cyan-400/20 blur-[180px]"></div>
+
+  {# Blue Glow #}
+  <div class="absolute bottom-[-280px] right-[-200px] w-[700px] h-[700px] rounded-full bg-blue-300/20 blur-[180px]"></div>
+
+  {# White Ambient Glow #}
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] rounded-full bg-white/5 blur-[160px]"></div>
+
+  {# Enterprise Grid #}
+  <div class="absolute inset-0 opacity-[0.05]" style="
+            background-image:
+            linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);
+            background-size:72px 72px;"></div>
+
+  {# Small Dots #}
+  <div class="absolute inset-0 opacity-[0.03]" style="
+            background-image:
+            radial-gradient(circle, white 1px, transparent 1px);
+            background-size:22px 22px;"></div>
+
+  {# Top Light #}
+  <div class="absolute top-0 inset-x-0 h-44 bg-gradient-to-b from-white/5 to-transparent"></div>
+
+  {# Bottom Shadow #}
+  <div class="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-black/15 to-transparent"></div>
+
+  <div class="relative z-10">
+    {# ============ TOP CTA ============ #}
+    <div class="border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 lg:py-16">
+        <div class="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-10 text-center lg:text-left">
+          <div>
+            <span class="uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/60 text-xs">START YOUR DIGITAL JOURNEY</span>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4">Let's build something extraordinary together.</h2>
+          </div>
+
+          <a href="/contact" class="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white text-[#0B5EA8] font-semibold hover:bg-slate-100 hover:gap-5 shadow-xl transition-all duration-300 text-sm sm:text-base">Get In Touch →</a>
+        </div>
+      </div>
+    </div>
+
+    {# ============ MAIN FOOTER ============ #}
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14 lg:py-20">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14">
+        {# Company #}
+        <div class="lg:col-span-4">
+          {# <img src="{% static 'images/logo2.png' %}" class="h-12 mb-8" alt="Logo"> #}
+          <span class="text-4xl font-black tracking-tight text-white">INTELLI</span>
+
+          <p class="text-white/60 leading-8 max-w-sm pt-10">Delivering innovative business development, enterprise IT solutions and digital transformation services for organizations across industries.</p>
+
+          <div class="flex gap-4 mt-10">
+            <a href="#" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-[#0D5EA6] transition-all"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-[#0D5EA6] transition-all"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-[#0D5EA6] transition-all"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-[#0D5EA6] transition-all"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-[#0D5EA6] transition-all"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+
+        {# Business #}
+        <div class="lg:col-span-2">
+          <h3 class="font-semibold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-8 after:h-0.5 after:bg-blue-500">Business</h3>
+
+          <ul class="space-y-4 text-white/60 mt-4">
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Website Development</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Software Development</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Mobile Apps</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">SEO</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Digital Marketing</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Branding</a>
+            </li>
+          </ul>
+        </div>
+
+        {# IT #}
+        <div class="lg:col-span-2">
+          <h3 class="font-semibold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-8 after:h-0.5 after:bg-blue-500">IT Solutions</h3>
+
+          <ul class="space-y-4 text-white/60 mt-4">
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Enterprise IT</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Managed IT</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Network Solutions</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Office Technology</a>
+            </li>
+            <li>
+              <a href="#" class="inline-flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all">Computer Services</a>
+            </li>
+          </ul>
+        </div>
+
+        {# Contact #}
+        <div class="lg:col-span-4">
+          <h3 class="font-semibold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-8 after:h-0.5 after:bg-cyan-300">Contact</h3>
+
+          <div class="space-y-5 text-white/70 mt-4">
+            {# Email #}
+            <a href="mailto:info@yourcompany.com" class="flex items-start gap-4 group">
+              <span class="w-11 h-11 shrink-0 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-[#0D5EA6] transition-all duration-300"><i class="fa-regular fa-envelope text-sm"></i></span>
+              <span class="pt-2 group-hover:text-white transition-colors">info@yourcompany.com</span>
+            </a>
+
+            {# Phone #}
+            <a href="tel:+9100000000" class="flex items-start gap-4 group">
+              <span class="w-11 h-11 shrink-0 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-[#0D5EA6] transition-all duration-300"><i class="fa-solid fa-phone text-sm"></i></span>
+              <span class="pt-2 group-hover:text-white transition-colors">+91 00000000000</span>
+            </a>
+
+            {# Location #}
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-full bg-white/10 border border-white/20 flex items-center justify-center"><i class="fa-solid fa-location-dot text-sm"></i></span>
+              <span class="pt-2">
+                Your Office Address<br />
+                Guwahati, Assam, India
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# ============ BOTTOM BAR ============ #}
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-8 flex flex-col lg:flex-row justify-between items-center gap-6">
+        <p class="text-white/50 text-sm">
+          ©{% now 'Y' %}Intelli Solutions. All Rights Reserved.
+        </p>
+
+        <div class="flex gap-8 text-sm text-white/50">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+          <a href="#" class="hover:text-white transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
